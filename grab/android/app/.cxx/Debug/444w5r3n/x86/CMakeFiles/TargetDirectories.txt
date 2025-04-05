@@ -1,0 +1,2 @@
+D:/android/Android Project/new/grab/android/app/.cxx/Debug/444w5r3n/x86/CMakeFiles/edit_cache.dir
+D:/android/Android Project/new/grab/android/app/.cxx/Debug/444w5r3n/x86/CMakeFiles/rebuild_cache.dir

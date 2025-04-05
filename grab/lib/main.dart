@@ -1,6 +1,8 @@
-import 'aktivitas.dart';
 import 'package:flutter/material.dart';
-
+import 'dineout.dart';
+import 'aktivitas.dart';
+import 'kontak_masuk.dart';
+import 'profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,9 +15,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// -------------------------------------------------------------------
-//                        HOME SCREEN
-// -------------------------------------------------------------------
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -24,14 +23,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  // List halaman untuk BottomNavigationBar
   final List<Widget> _pages = [
-  HomePage(),
-  AktivitasPage(), // Ubah menjadi class yang baru kita buat
-  Center(child: Text("Pembayaran")),
-  Center(child: Text("Kotak Masuk")),
-];
-
+    HomePage(),
+    AktivitasPage(),
+    Center(child: Text("Pembayaran")),
+    KontakMasukPage(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -42,10 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Menampilkan halaman sesuai _selectedIndex
       body: _pages[_selectedIndex],
-
-      // BottomNavigationBar
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.green,
@@ -66,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Stack(
               children: [
                 Icon(Icons.chat),
-                // Indikator Notifikasi
                 Positioned(
                   top: 0,
                   right: 0,
@@ -89,14 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// -------------------------------------------------------------------
-//                          HOME PAGE
-// -------------------------------------------------------------------
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar dengan QR dan Search
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -130,143 +119,97 @@ class HomePage extends StatelessWidget {
           ],
         ),
         actions: [
-          CircleAvatar(
-            backgroundColor: Colors.green,
-            child: Icon(Icons.person, color: Colors.white),
+          InkWell(
+            //Tambahkan InkWell untuk membuat ikon bisa di tap
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ProfilePage())); // Navigasi ke halaman profil
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.green,
+              child: Icon(Icons.person, color: Colors.white),
+            ),
           ),
           SizedBox(width: 16),
         ],
       ),
-
-      // Konten Halaman
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(height: 20),
-
-            // 8 ikon dengan GridView
             GridView.count(
               crossAxisCount: 4,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               children: [
-                _buildIcon("assets/dineout.png","Dine Out",context,DineOutPage(),),
-                _buildIcon("assets/motor.png","Motor", context, MotorPage(),),
-                _buildIcon("assets/mobil.png","Mobil", context, MobilPage(),),
-                _buildIcon("assets/makanan.png","Makanan", context, MakananPage(),),
-                _buildIcon("assets/belanja.png","Belanja", context, BelanjaPage(),),
-                _buildIcon("assets/express.png","Express", context, ExpressPage(),),
-                _buildIcon("assets/pulsa.png","Pulsa dan Listrik", context, PulsaBillsPage(),),
-                _buildIcon("assets/semua.png","Semua", context, SemuaLayananPage(),),
+                _buildIcon(
+                    "assets/dineout.png", "Dine Out", context, DineOutPage()),
+                _buildIcon("assets/motor.png", "Motor", context, MotorPage()),
+                _buildIcon("assets/mobil.png", "Mobil", context, MobilPage()),
+                _buildIcon(
+                    "assets/makanan.png", "Makanan", context, MakananPage()),
+                _buildIcon(
+                    "assets/belanja.png", "Belanja", context, BelanjaPage()),
+                _buildIcon(
+                    "assets/express.png", "Express", context, ExpressPage()),
+                _buildIcon("assets/pulsa.png", "Pulsa & Listrik", context,
+                    PulsaBillsPage()),
+                _buildIcon("assets/semua.png", "Semua", context, null,
+                    showBottomSheet: true), //Perubahan disini
               ],
             ),
             SizedBox(height: 10),
-
-            // Promo Spesial
             _buildDiscountRow(),
             SizedBox(height: 20),
-
-            // ScrollView horizontal (Payment Card)
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
                   _buildPaymentCard(
-                    "Pembayaran",
-                    "Tambah kartu",
-                    Icons.credit_card,
-                  ),
+                      "Pembayaran", "Tambah kartu", Icons.credit_card),
                   _buildPaymentCard(
-                    "Jalan ke",
-                    "Sidoarjo Station",
-                    Icons.directions_bike,
-                  ),
+                      "Jalan ke", "Sidoarjo", Icons.directions_bike),
                   _buildPaymentCard(
-                    "Promo",
-                    "Diskon spesial",
-                    Icons.local_offer,
-                  ),
+                      "Promo", "Diskon spesial", Icons.local_offer),
                 ],
               ),
             ),
             SizedBox(height: 20),
-
-            // Rekomendasi Restoran
             _buildSectionTitle("Rekomendasi restoran untukmu"),
             SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  _buildRestaurantCard(
-                    "Mie Gacoan Ponti",
-                    "4.0 km",
-                    4.7,
-                    "Diskon Rp15.000",
-                    "assets/gacoan.png",
-                  ),
-                  _buildRestaurantCard(
-                    "MIXUE Gading Fajar",
-                    "1.7 km",
-                    4.8,
-                    "Diskon Rp10.000",
-                    "assets/mixue.jpg",
-                  ),
-                  _buildRestaurantCard(
-                    "Pizaat hut",
-                    "3.1 km",
-                    4.6,
-                    "Diskon Rp20.000",
-                    "assets/sederhana.jpg",
-                  ),
-                  _buildRestaurantCard(
-                    "KFC Larangan",
-                    "2.5 km",
-                    4.5,
-                    "Diskon Rp25.000",
-                    "assets/kfc.jpg",
-                  ),
+                  _buildRestaurantCard("Mie Gacoan Ponti", "4.0 km", 4.7,
+                      "Diskon Rp15.000", "assets/gacoan.png"),
+                  _buildRestaurantCard("MIXUE Gading Fajar", "1.7 km", 4.8,
+                      "Diskon Rp10.000", "assets/mixue.jpg"),
+                  _buildRestaurantCard("Pizaat hut", "3.1 km", 4.6,
+                      "Diskon Rp20.000", "assets/sederhana.jpg"),
+                  _buildRestaurantCard("KFC Larangan", "2.5 km", 4.5,
+                      "Diskon Rp25.000", "assets/kfc.jpg"),
                 ],
               ),
             ),
             SizedBox(height: 20),
-
-            // Cemilan
-            // Rekomendasi Restoran
             _buildSectionTitle("Pesan Makan Malam Dari"),
             SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  _buildRestaurantCard(
-                    "Terang Bulan",
-                    "4.0 km",
-                    4.7,
-                    "Diskon Rp15.000",
-                    "assets/terangbulan.png",
-                  ),
-                  _buildRestaurantCard(
-                    "Donat",
-                    "1.7 km",
-                    4.8,
-                    "Diskon Rp10.000",
-                    "assets/donat.jpg",
-                  ),
-                  _buildRestaurantCard(
-                    "French fries",
-                    "3.1 km",
-                    4.6,
-                    "Diskon Rp20.000",
-                    "assets/kentang.jpg",
-                  ),
-                  _buildRestaurantCard(
-                    "Ice Creem",
-                    "2.5 km",
-                    4.5,
-                    "Diskon Rp25.000",
-                    "assets/eskrim.jpg",
-                  ),
+                  _buildRestaurantCard("Terang Bulan", "4.0 km", 4.7,
+                      "Diskon Rp15.000", "assets/terangbulan.png"),
+                  _buildRestaurantCard("Donat", "1.7 km", 4.8,
+                      "Diskon Rp10.000", "assets/donat.jpg"),
+                  _buildRestaurantCard("French fries", "3.1 km", 4.6,
+                      "Diskon Rp20.000", "assets/kentang.jpg"),
+                  _buildRestaurantCard("Ice Creem", "2.5 km", 4.5,
+                      "Diskon Rp25.000", "assets/eskrim.jpg"),
                 ],
               ),
             ),
@@ -277,18 +220,17 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // -----------------------------------------------------------------
-  //             METHOD MEMBUAT IKON + NAVIGASI
-  // -----------------------------------------------------------------
   Widget _buildIcon(
-    String image,
-    String label,
-    BuildContext context,
-    Widget page,
-  ) {
+      String image, String label, BuildContext context, Widget? page,
+      {bool showBottomSheet = false}) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+        if (showBottomSheet) {
+          _showBottomSheetSemuaLayanan(context);
+        } else if (page != null) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => page));
+        }
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -296,9 +238,7 @@ class HomePage extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(
-                0.1,
-              ), // Warna background dengan transparansi
+              color: Colors.green.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: Image.asset(image, height: 40, width: 40),
@@ -310,16 +250,100 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // -----------------------------------------------------------------
-  //             PROMO SPESIAL
-  // -----------------------------------------------------------------
+  void _showBottomSheetSemuaLayanan(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      isScrollControlled: true,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(20),
+          height: 400,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Text("Untukmu",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              _buildIconGrid([
+                {
+                  'icon': 'assets/paket_diskon.jpg',
+                  'label': 'Paket Diskon'
+                },
+                {'icon': 'assets/kesehatan.jpg', 'label': 'Kesehatan'},
+                {'icon': 'assets/bank.jpg', 'label': 'Superbank'},
+                {'icon': 'assets/sewa.jpg', 'label': 'Sewa'},
+              ]),
+              SizedBox(height: 15),
+              Text("Jasa lainnya",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              SizedBox(height: 10),
+              Expanded(
+                child: _buildIconGrid([
+                  {'icon': 'assets/makanan.png', 'label': 'Makanan'},
+                  {'icon': 'assets/motor.png', 'label': 'Motor'},
+                  {'icon': 'assets/mobil.png', 'label': 'Mobil'},
+                  {'icon': 'assets/express.png', 'label': 'Express'},
+                  {'icon': 'assets/belanja.png', 'label': 'Belanja'},
+                  {'icon': 'assets/pulsa.png', 'label': 'Pulsa & Bills'},
+                  {'icon': 'assets/asuransi.jpg', 'label': 'Jastip'},
+                  {'icon': 'assets/hadiah.jpg', 'label': 'Sewa'},
+                  
+                  
+                ]),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildIconGrid(List<Map<String, dynamic>> items) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        childAspectRatio: 1,
+      ),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            CircleAvatar(
+              radius: 25,
+              backgroundColor: Colors.green[100],
+              child: Image.asset(items[index]['icon'], width: 35, height: 35),
+            ),
+            SizedBox(height: 5),
+            Text(items[index]['label'],
+                style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+          ],
+        );
+      },
+    );
+  }
+
   Widget _buildDiscountRow() {
     return _buildSectionTitle("Promo Spesial");
   }
 
-  // -----------------------------------------------------------------
-  //             KARTU PEMBAYARAN
-  // -----------------------------------------------------------------
   Widget _buildPaymentCard(String title, String subtitle, IconData icon) {
     return Container(
       width: 160,
@@ -348,16 +372,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // -----------------------------------------------------------------
-  //             REKOMENDASI RESTORAN
-  // -----------------------------------------------------------------
-  Widget _buildRestaurantCard(
-    String name,
-    String distance,
-    double rating,
-    String discount,
-    String imagePath,
-  ) {
+  Widget _buildRestaurantCard(String name, String distance, double rating,
+      String discount, String imagePath) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 8),
       width: 200,
@@ -365,56 +381,44 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         color: Colors.white,
         boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 2),
+          BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 2)
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Gambar
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.asset(
-              imagePath,
-              height: 120,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(imagePath,
+                height: 120, width: double.infinity, fit: BoxFit.cover),
           ),
-          // Info Restoran
           Padding(
             padding: EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+                Text(name,
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 SizedBox(height: 4),
                 Text(distance, style: TextStyle(color: Colors.grey)),
                 SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(Icons.star, color: const Color.fromARGB(255, 209, 212, 14), size: 16),
+                    Icon(Icons.star,
+                        color: const Color.fromARGB(255, 209, 212, 14),
+                        size: 16),
                     SizedBox(width: 4),
-                    Text(
-                      rating.toString(),
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text(rating.toString(),
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold)),
                   ],
                 ),
                 SizedBox(height: 4),
-                Text(
-                  discount,
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(discount,
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -423,24 +427,14 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // -----------------------------------------------------------------
-  //             SNACK CARD
-  // -----------------------------------------------------------------
   Widget _buildSnackCard(String name, String price, String? imagePath) {
-    // Jika imagePath tidak diberikan, buat default path dari nama
     String formattedName = name.toLowerCase().replaceAll(" ", "_");
     String finalImagePath = imagePath ?? "assets/images/$formattedName.jpg";
-
     return _buildCard(name, price, null, finalImagePath);
   }
 
-  // Kartu Umum (untuk snack, dsb)
   Widget _buildCard(
-    String title,
-    String subtitle,
-    String? discount,
-    String imagePath,
-  ) {
+      String title, String subtitle, String? discount, String imagePath) {
     return Container(
       width: 160,
       margin: EdgeInsets.symmetric(horizontal: 8),
@@ -453,54 +447,36 @@ class HomePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Gambar
           ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              imagePath,
-              width: 160,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-          ),
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(imagePath,
+                  width: 160, height: 100, fit: BoxFit.cover)),
           SizedBox(height: 5),
-          // Judul & Harga
           Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
           Text(subtitle),
-          // Discount (jika ada)
           if (discount != null)
-            Text(
-              discount,
-              style: TextStyle(
-                color: const Color.fromARGB(255, 0, 0, 0),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(discount,
+                style: TextStyle(
+                    color: const Color.fromARGB(255, 0, 0, 0),
+                    fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
 
-  // -----------------------------------------------------------------
-  //             JUDUL SECTION
-  // -----------------------------------------------------------------
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text(
-          title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        child: Text(title,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
     );
   }
 }
 
-// -------------------------------------------------------------------
-//                     HALAMAN LAIN (DUMMY)
-// -------------------------------------------------------------------
+//... halaman lain seperti MakananPage, MotorPage, etc.
 class MakananPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -557,26 +533,6 @@ class PulsaBillsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Pulsa & Bills")),
       body: Center(child: Text("Halaman Pulsa & Bills")),
-    );
-  }
-}
-
-class DineOutPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Dine Out")),
-      body: Center(child: Text("Halaman Dine Out")),
-    );
-  }
-}
-
-class SemuaLayananPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Semua Layanan")),
-      body: Center(child: Text("Halaman Semua Layanan")),
     );
   }
 }

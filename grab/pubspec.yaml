@@ -79,6 +79,43 @@ flutter:
   - assets/gacoan.png
   - assets/terangbulan.png
   - assets/makanan.png
+  - assets/keluarga.png
+  - assets/bisnis.png
+  - assets/family.png
+  - assets/pesanmasuk.png
+  - assets/customservis.png
+  - assets/pp_.png
+
+  - assets/mixue_deal.jpg
+  - assets/pizza.jpg
+  - assets/bangkok_crab.jpg
+  - assets/caffe_bromo.jpg
+  - assets/gudeg.jpg
+  - assets/lontong_kupang.jpg
+  - assets/martabak.jpg
+  - assets/nasi_gor.jpg
+  - assets/nasi_kabuli.jpg
+  - assets/nasi_padang.jpg
+  - assets/nasi_pecel.jpg
+  - assets/ramadhan.jpg
+  - assets/sate.jpg
+  - assets/sate_lilit.jpg
+  - assets/rawon.jpg
+  - assets/soto_banjar.jpg
+
+  - assets/mcd.jpg
+  - assets/ricis.webp
+  - assets/res_gacoan.jpg
+
+  - assets/paket_diskon.jpg
+  - assets/sewa.jpg
+  - assets/asuransi.jpg
+  - assets/kesehatan.jpg
+  - assets/hadiah.jpg
+  - assets/bank.jpg
+  
+
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
