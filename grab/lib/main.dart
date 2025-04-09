@@ -3,6 +3,8 @@ import 'dineout.dart';
 import 'aktivitas.dart';
 import 'kontak_masuk.dart';
 import 'profile.dart';
+import 'motor.dart';
+import 'mobil.dart';
 
 void main() {
   runApp(MyApp());
@@ -279,10 +281,7 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               _buildIconGrid([
-                {
-                  'icon': 'assets/paket_diskon.jpg',
-                  'label': 'Paket Diskon'
-                },
+                {'icon': 'assets/paket_diskon.jpg', 'label': 'Paket Diskon'},
                 {'icon': 'assets/kesehatan.jpg', 'label': 'Kesehatan'},
                 {'icon': 'assets/bank.jpg', 'label': 'Superbank'},
                 {'icon': 'assets/sewa.jpg', 'label': 'Sewa'},
@@ -301,8 +300,6 @@ class HomePage extends StatelessWidget {
                   {'icon': 'assets/pulsa.png', 'label': 'Pulsa & Bills'},
                   {'icon': 'assets/asuransi.jpg', 'label': 'Jastip'},
                   {'icon': 'assets/hadiah.jpg', 'label': 'Sewa'},
-                  
-                  
                 ]),
               ),
             ],
@@ -487,25 +484,7 @@ class MakananPage extends StatelessWidget {
   }
 }
 
-class MotorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Motor")),
-      body: Center(child: Text("Halaman Motor")),
-    );
-  }
-}
 
-class MobilPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Mobil")),
-      body: Center(child: Text("Halaman Mobil")),
-    );
-  }
-}
 
 class BelanjaPage extends StatelessWidget {
   @override
