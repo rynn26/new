@@ -10,62 +10,108 @@ class _MakananPageState extends State<MakananPage> {
   int _currentBanner = 0;
 
   final List<String> bannerImages = [
-    'https://via.placeholder.com/400x180?text=Banner+1',
-    'https://via.placeholder.com/400x180?text=Banner+2',
-    'https://via.placeholder.com/400x180?text=Banner+3',
+    'assets/banner1.png',
+    'assets/banner1.png',
   ];
 
   final List<Map<String, String>> categories = [
-    {'title': 'Aneka Nasi', 'image': 'https://via.placeholder.com/80'},
-    {'title': 'Ayam', 'image': 'https://via.placeholder.com/80'},
-    {'title': 'Asli\nIndonesia', 'image': 'https://via.placeholder.com/80'},
-    {'title': 'Cemilan', 'image': 'https://via.placeholder.com/80'},
+    {'title': 'Aneka Nasi', 'image': 'assets/gudeg.jpg'},
+    {'title': 'Ayam', 'image': 'assets/gudeg.jpg'},
+    {'title': 'kentang', 'image': 'assets/kentang.jpg'},
+    {'title': 'sate', 'image': 'assets/sate.jpg'},
+    {'title': 'pizza', 'image': 'assets/pizza.jpg'},
+    {'title': 'nasipadang', 'image': 'assets/nasi_padang.jpg'},
+    {'title': 'nasi_kabuli', 'image': 'assets/nasi_kabuli.jpg'},
+    {'title': 'martabak', 'image': 'assets/martabak.jpg'},
   ];
 
   final List<Map<String, dynamic>> promoCards = [
-    {'title': 'Dekat Saya', 'desc': 'Dapatkan cepat', 'color': Colors.pink[100]},
-    {'title': 'Diskon s/d 55%', 'desc': 'Diskon terbaik GrabFood', 'color': Colors.blue[100]},
-    {'title': 'Resto Bintang 5', 'desc': 'Resto pilihan terbaik', 'color': Colors.orange[100]},
-    {'title': 'GrabFood Mandiri 22rb', 'desc': 'Termasuk ongkir!', 'color': Colors.yellow[100]},
+    {
+      'title': 'Dekat Saya',
+      'desc': 'Dapatkan cepat',
+      'color': Colors.pink[100],
+      'icon': Icons.location_on,
+    },
+    {
+      'title': 'Diskon s/d 55%',
+      'desc': 'Diskon terbaik GrabFood',
+      'color': Colors.blue[100],
+      'icon': Icons.percent,
+    },
+    {
+      'title': 'Resto Bintang 5',
+      'desc': 'Resto pilihan dengan ulasan terbaik',
+      'color': Colors.orange[100],
+      'icon': Icons.star,
+    },
+    {
+      'title': 'GrabFood Mandiri 22rb',
+      'desc': 'Makan sendiri, termasuk ongkir!',
+      'color': Colors.yellow[100],
+      'icon': Icons.delivery_dining,
+    },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: ListView(
-          children: [
-            _buildHeader(),
-            _buildSearchBar(),
-            _buildTabBar(),
-            _buildCategories(),
-            _buildPromoCards(),
-            _buildBannerCarousel(),
-            _buildPromoSection(),
-          ],
-        ),
+      body: Column(
+        children: [
+          _buildHeader(),
+          Expanded(
+            child: ListView(
+              children: [
+                _buildSearchBar(),
+                _buildTabBar(),
+                _buildCategories(),
+                _buildPromoCards(),
+                _buildBannerCarousel(),
+                _buildPromoSection(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildHeader() {
-    return Padding(
-      padding: const EdgeInsets.all(16),
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFF00C59A), Color(0xFF00C5A1)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
       child: Row(
         children: [
-          Icon(Icons.arrow_back),
+          Icon(Icons.arrow_back, color: Colors.white),
           SizedBox(width: 8),
           Expanded(
-            child: Text(
-              'Dekat STKIP PGRI Sidoarjo',
-              style: TextStyle(fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('ANTAR KE', style: TextStyle(color: Colors.white, fontSize: 12)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Dekat STKIP PGRI Sidoarjo',
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Icon(Icons.keyboard_arrow_down, color: Colors.white),
+                  ],
+                ),
+              ],
             ),
           ),
-          Icon(Icons.favorite_border),
+          Icon(Icons.favorite_border, color: Colors.white),
           SizedBox(width: 8),
-          Icon(Icons.receipt_long),
+          Icon(Icons.receipt_long, color: Colors.white),
         ],
       ),
     );
@@ -73,7 +119,7 @@ class _MakananPageState extends State<MakananPage> {
 
   Widget _buildSearchBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Kamu pesan apa nih?',
@@ -92,65 +138,81 @@ class _MakananPageState extends State<MakananPage> {
 
   Widget _buildTabBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _tabOption('Pengantaran', true),
-          _tabOption('Dine Out Deals', false),
-          _tabOption('Pick-Up', false),
+          _tabOption(Icons.delivery_dining, 'Pengantaran', true),
+          _tabOption(Icons.restaurant, 'Dine Out Deals', false),
+          _tabOption(Icons.storefront, 'Pick-Up', false),
         ],
       ),
     );
   }
 
-  Widget _tabOption(String label, bool isActive) {
+  Widget _tabOption(IconData icon, String label, bool isActive) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: isActive ? Colors.green[800] : Colors.grey[200],
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isActive ? Colors.white : Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
+      child: Row(
+        children: [
+          Icon(icon, color: isActive ? Colors.white : Colors.black, size: 16),
+          SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: isActive ? Colors.white : Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildCategories() {
-    return Container(
-      height: 100,
-      padding: EdgeInsets.symmetric(vertical: 8),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (_, index) {
-          final item = categories[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(item['image']!),
-                  radius: 30,
-                ),
-                SizedBox(height: 4),
-                Text(
+Widget _buildCategories() {
+  return Container(
+    height: 110,
+    padding: EdgeInsets.symmetric(vertical: 8),
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: categories.length,
+      itemBuilder: (_, index) {
+        final item = categories[index];
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(item['image']!),
+                radius: 28,
+                backgroundColor: Colors.grey[200],
+              ),
+              SizedBox(height: 6),
+              SizedBox(
+                width: 64,
+                child: Text(
                   item['title']!,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(
+                    fontSize: 12,
+                    height: 1.2,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
+              ),
+            ],
+          ),
+        );
+      },
+    ),
+  );
+}
+
 
   Widget _buildPromoCards() {
     return Padding(
@@ -169,7 +231,15 @@ class _MakananPageState extends State<MakananPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(card['title'], style: TextStyle(fontWeight: FontWeight.bold)),
+                Row(
+                  children: [
+                    Icon(card['icon'], size: 20),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(card['title'], style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 4),
                 Text(card['desc']),
               ],
@@ -198,7 +268,7 @@ class _MakananPageState extends State<MakananPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.network(
+                  child: Image.asset(
                     bannerImages[index],
                     fit: BoxFit.cover,
                     width: double.infinity,
@@ -236,15 +306,16 @@ class _MakananPageState extends State<MakananPage> {
         children: [
           Row(
             children: [
-              Text('CUMA 3 HARI', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Text('CUMA 3 HARI',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               Icon(Icons.chevron_right),
             ],
           ),
           SizedBox(height: 12),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              'https://via.placeholder.com/400x200.png?text=Promo+Ngopi',
+            child: Image.asset(
+              'assets/banner1.png',
               fit: BoxFit.cover,
               width: double.infinity,
             ),
