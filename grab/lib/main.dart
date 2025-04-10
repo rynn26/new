@@ -3,8 +3,13 @@ import 'dineout.dart';
 import 'aktivitas.dart';
 import 'kontak_masuk.dart';
 import 'profile.dart';
+<<<<<<< HEAD
 import 'BiodataForm.dart';
 import 'titip_oleh_oleh.dart';
+=======
+import 'pulsa_listrik.dart';
+import 'makanan.dart';
+>>>>>>> 6ab759f2289a708bd3871a6cec43ad22783d3083
 
 void main() {
   runApp(MyApp());
@@ -478,16 +483,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-//... halaman lain seperti MakananPage, MotorPage, etc.
-class MakananPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Makanan")),
-      body: Center(child: Text("Halaman Makanan")),
-    );
-  }
-}
+
 
 class MotorPage extends StatelessWidget {
   @override
@@ -529,12 +525,3 @@ class MobilPage extends StatelessWidget {
 //   }
 // }
 
-class PulsaBillsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Pulsa & Bills")),
-      body: Center(child: Text("Halaman Pulsa & Bills")),
-    );
-  }
-}
