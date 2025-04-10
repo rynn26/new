@@ -1,192 +1,188 @@
 import 'package:flutter/material.dart';
 
 class PulsaBillsPage extends StatelessWidget {
+  const PulsaBillsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pulsa/Bills'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: const BackButton(color: Colors.black),
+        title: const Text(
+          'Pulsa/Bills',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Search Bar
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.search),
-                    hintText: "Cari top up atau biller",
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16),
-
-            // Banner Promo
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ClipRRect(
+            // Search bar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  'assets/banner1.png', // <- Ganti dengan banner kamu
-                  height: 150,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+              ),
+              child: const TextField(
+                decoration: InputDecoration(
+                  icon: Icon(Icons.search),
+                  hintText: 'Cari top up atau biller',
+                  border: InputBorder.none,
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
+
+            // Banner
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/banner1.png', // Ganti dengan banner milikmu
+                height: 140,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 16),
 
             // Bisa minta bayarin
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Bisa minta bayarin tagihan",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 4),
-                  Text("Coba Fitur Bayarin untuk minta bayarin tagihan"),
-                ],
-              ),
+            const Text(
+              'Bisa minta bayarin tagihan',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 4),
+            const Text('Coba Fitur Bayarin untuk minta bayarin tagihan'),
+            const SizedBox(height: 16),
 
-            // Promo dan Transaksi box
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: _featureBox(
-                      color: Colors.lightBlue.shade100,
-                      icon: Icons.local_offer,
-                      title: "Cek promo menarik",
-                      subtitle: "2 rewards tersedia!",
-                    ),
+            // Promo dan transaksi
+            Row(
+              children: [
+                Expanded(
+                  child: _infoCard(
+                    color: const Color(0xFFD9F2FF),
+                    icon: Icons.discount_outlined,
+                    title: 'Cek promo menarik',
+                    subtitle: '2 rewards tersedia!',
                   ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: _featureBox(
-                      color: Colors.yellow.shade100,
-                      icon: Icons.receipt_long,
-                      title: "Daftar transaksi",
-                      subtitle: "Cek transaksi kamu",
-                    ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _infoCard(
+                    color: const Color(0xFFFFF4C5),
+                    icon: Icons.receipt_long_rounded,
+                    title: 'Daftar transaksi',
+                    subtitle: 'Cek transaksi kamu',
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 24),
 
-            // Top-Up
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Top-Up",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              ),
+            const Text(
+              'Top-Up',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Wrap(
-                spacing: 24,
-                runSpacing: 24,
-                children: [
-                  _topUpItem("E-Money", Icons.wifi),
-                  _topUpItem("Pulsa dan\nPaket Data", Icons.phone_android),
-                  _topUpItem("Token Listrik", Icons.electric_bolt),
-                  _topUpItem("Game\nTop-Up", Icons.videogame_asset),
-                  _topUpItem("TSEL Hemat", Icons.sim_card),
-                  _topUpItem("Donasi", Icons.favorite),
-                ],
-              ),
-            ),
-            SizedBox(height: 24),
+            const SizedBox(height: 12),
 
-            // Tagihan (optional, bisa kamu lanjutkan)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Tagihan",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              ),
+            Wrap(
+              spacing: 24,
+              runSpacing: 24,
+              children: [
+                _topUpItem('E-Money', 'assets/emoney.png'),
+                _topUpItem('Pulsa dan\nPaket Data', 'assets/pulsa_paket.png'),
+                _topUpItem('Token Listrik', 'assets/token.png'),
+                _topUpItem('Game\nTop-Up', 'assets/game.png'),
+                _topUpItem('TSEL Hemat\nLengkap', 'assets/tsel.png'),
+                _topUpItem('Donasi', 'assets/donasi.png'),
+               
+
+              ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 24),
+
+            const Text(
+              'Tagihan',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+              Wrap(
+              spacing: 24,
+              runSpacing: 24,
+              children: [
+                _topUpItem('Tagihan Listrik', 'assets/tagihanlistrik.jpg'),
+                _topUpItem('PDAM', 'assets/tagihanair.jpg'),
+                _topUpItem('Telpon Rumah', 'assets/tagihantelpon.jpg'),
+                _topUpItem('Internet', 'assets/tagihanwifi.jpg'),
+                _topUpItem('BPJS', 'assets/tagihanbpjs.jpg'),
+                _topUpItem('Pulsa Pascabayar', 'assets/tagihanpulsa.jpg'),
+                _topUpItem('Biaya Pendidikan', 'assets/tagihanpendidikan.jpg'),
+                _topUpItem('PBB', 'assets/tagihanpbb.jpg'),
+
+
+              ],
+            ),
+            const SizedBox(height: 24),
+
           ],
         ),
       ),
     );
   }
 
-  Widget _featureBox({
+  Widget _infoCard({
     required Color color,
     required IconData icon,
     required String title,
     required String subtitle,
   }) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 28),
-          SizedBox(width: 8),
+          Icon(icon, color: Colors.orange, size: 30),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(subtitle, style: TextStyle(fontSize: 12)),
+                Text(title,
+                    style: const TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 2),
+                Text(subtitle,
+                    style: const TextStyle(fontSize: 12, color: Colors.black54)),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
   }
 
-  Widget _topUpItem(String label, IconData icon) {
+  Widget _topUpItem(String label, String iconPath) {
     return SizedBox(
-      width: 80,
+      width: 72,
       child: Column(
         children: [
           CircleAvatar(
-            backgroundColor: Colors.green.shade100,
+            backgroundColor: const Color(0xFFE6F7EC),
             radius: 28,
-            child: Icon(icon, size: 28, color: Colors.green),
+            backgroundImage: AssetImage(iconPath),
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Text(
             label,
-            style: TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 12),
             textAlign: TextAlign.center,
-          ),
+          )
         ],
       ),
     );

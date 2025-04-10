@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 class MotorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,7 +22,12 @@ class MotorPage extends StatelessWidget {
                     left: 16,
                     child: Row(
                       children: [
-                        Icon(Icons.arrow_back, color: Colors.black),
+                        InkWell( // Wrap the Icon with InkWell for tap detection
+                          onTap: () {
+                            Navigator.pop(context); // Navigate back
+                          },
+                          child: Icon(Icons.arrow_back, color: Colors.black),
+                        ),
                         SizedBox(width: 8),
                         Text(
                           "Transportasi",

@@ -5,8 +5,11 @@ import 'kontak_masuk.dart';
 import 'profile.dart';
 import 'motor.dart';
 import 'mobil.dart';
+import 'belanja.dart';
+import 'titip_oleh_oleh.dart';
 import 'pulsa_listrik.dart';
 import 'makanan.dart';
+
 
 
 void main() {
@@ -157,9 +160,9 @@ class HomePage extends StatelessWidget {
                 _buildIcon(
                     "assets/makanan.png", "Makanan", context, MakananPage()),
                 _buildIcon(
-                    "assets/belanja.png", "Belanja", context, BelanjaPage()),
+                    "assets/belanja.png", "Belanja", context, BiodataForm()),
                 _buildIcon(
-                    "assets/express.png", "Express", context, ExpressPage()),
+                    "assets/express.png", "Express", context, TitipOlehOlehPage()),
                 _buildIcon("assets/pulsa.png", "Pulsa & Listrik", context,
                     PulsaBillsPage()),
                 _buildIcon("assets/semua.png", "Semua", context, null,
@@ -480,23 +483,23 @@ class HomePage extends StatelessWidget {
 
 
 
-class BelanjaPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Belanja")),
-      body: Center(child: Text("Halaman Belanja")),
-    );
-  }
-}
+// class BiodataForm extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Belanja")),
+//       body: Center(child: Text("Halaman Belanja")),
+//     );
+//   }
+// }
 
-class ExpressPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Express")),
-      body: Center(child: Text("Halaman Express")),
-    );
-  }
-}
+// class ExpressPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Express")),
+//       body: Center(child: Text("Halaman Express")),
+//     );
+//   }
+// }
 

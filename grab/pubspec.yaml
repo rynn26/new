@@ -87,6 +87,16 @@ flutter:
   - assets/customservis.png
   - assets/pp_.png
   - assets/banner1.png
+  - assets/emoney.png
+  - assets/pulsa_paket.png
+  - assets/token.png
+  - assets/game.png
+  - assets/tsel.png
+  - assets/donasi.png
+
+
+
+
 
 
 
@@ -124,6 +134,23 @@ flutter:
   - assets/motorr.png
   - assets/sewamobill.png
   - assets/jemputann.png
+  
+  - assets/promo_a.jpg
+  - assets/promo_b.jpg
+  - assets/promo_bank.jpg
+  
+  - assets/tagihanair.jpg
+  - assets/tagihanlistrik.jpg
+  - assets/tagihanbpjs.jpg
+  - assets/tagihantelpon.jpg
+  - assets/tagihanwifi.jpg
+  - assets/tagihanpulsa.jpg
+  - assets/tagihanpendidikan.jpg
+  - assets/tagihanpbb.jpg
+  
+  - assets/makanan_roti.jpg
+  - assets/makanan_pizza.jpg
+  
   
 
 
