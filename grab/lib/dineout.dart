@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 class DineOutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return Scaffold(
+      body: HomePage(),
     );
   }
 }
@@ -144,44 +143,48 @@ class _HomePageState extends State<HomePage> {
                       end: Alignment.bottomRight)),
               child: SafeArea(
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(children: [
-                        IconButton(
-                            icon: const Icon(Icons.arrow_back,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(children: [
+                      IconButton(
+                          icon: const Icon(Icons.arrow_back,
+                              color: Colors.white),
+                          onPressed: () {
+                            Navigator.pop(context); // Go back to DashboardPage
+                          }),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("MAKAN DI",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300)),
+                          Row(children: [
+                            const Text("Optik Kutuk Barat",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                            const SizedBox(width: 4),
+                            const Icon(Icons.keyboard_arrow_down,
                                 color: Colors.white),
-                            onPressed: () {}),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text("MAKAN DI",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w300)),
-                              Row(children: [
-                                const Text("Optik Kutuk Barat",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold)),
-                                const SizedBox(width: 4),
-                                const Icon(Icons.keyboard_arrow_down,
-                                    color: Colors.white),
-                              ]),
-                            ]),
-                      ]),
-                      Row(children: [
-                        IconButton(
-                            icon: const Icon(Icons.favorite_border,
-                                color: Colors.white),
-                            onPressed: () {}),
-                        IconButton(
-                            icon: const Icon(Icons.receipt_long,
-                                color: Colors.white),
-                            onPressed: () {}),
-                      ]),
+                          ]),
+                        ],
+                      ),
                     ]),
+                    Row(children: [
+                      IconButton(
+                          icon: const Icon(Icons.favorite_border,
+                              color: Colors.white),
+                          onPressed: () {}),
+                      IconButton(
+                          icon: const Icon(Icons.receipt_long,
+                              color: Colors.white),
+                          onPressed: () {}),
+                    ]),
+                  ],
+                ),
               ),
             ),
             Padding(

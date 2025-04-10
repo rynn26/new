@@ -14,7 +14,9 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context); // This line handles the back button functionality
+          },
         ),
         backgroundColor: Colors.green[50],
         elevation: 0,
